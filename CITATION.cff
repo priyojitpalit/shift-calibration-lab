@@ -7,7 +7,7 @@ authors:
     given-names: "Priyojit"
 date-released: 2026-01-01
 version: "1.0"
-repository-code: "https://github.com/YOUR_USERNAME/shift-calibration-lab"
+repository-code: "https://github.com/priyojitpalit/shift-calibration-lab"
 keywords:
   - machine learning
   - calibration
