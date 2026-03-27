@@ -1,0 +1,136 @@
+Metadata-Version: 2.4
+Name: shift-calibration-lab
+Version: 0.1.0
+Summary: Calibration and distribution-shift experimentation framework
+Author: Priyojit Palit
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.24
+Requires-Dist: pandas>=2.0
+Requires-Dist: scikit-learn>=1.3
+Requires-Dist: matplotlib>=3.7
+Requires-Dist: PyYAML>=6.0
+
+# Shift Calibration Lab
+
+Shift Calibration Lab is a research-oriented experimentation framework for studying confidence calibration under controlled distribution shift. The project reproduces the central temperature-scaling result from Guo et al. and extends it with adaptive temperature scaling driven by input-level uncertainty features.
+
+## Research Objective
+
+The framework addresses a narrow question with direct relevance to trustworthy machine learning systems:
+
+> How stable is post-hoc calibration when a classifier is deployed on inputs whose distribution has drifted in controlled, structured ways?
+
+The codebase supports three classes of experiments:
+
+1. Baseline miscalibration measurement on in-distribution data.
+2. Post-hoc calibration using scalar temperature scaling.
+3. Calibration stress testing under shift, including an adaptive temperature model.
+
+## Included Capabilities
+
+- deterministic experiment orchestration
+- train/validation/calibration/test split management
+- configurable image transformations with severity schedules
+- multiclass metrics: accuracy, NLL, Brier score, ECE, MCE
+- reliability diagrams and confidence histograms
+- scalar temperature scaling
+- feature-conditioned adaptive temperature scaling
+- batch experiment runs over multiple shift families and severity levels
+- structured JSON artifact export
+- markdown and CSV report generation
+
+## Project Layout
+
+```text
+shift-calibration-lab/
+├── configs/
+│   ├── digits_baseline.yaml
+│   └── digits_shift_sweep.yaml
+├── scripts/
+│   ├── run_baseline.py
+│   ├── run_shift_sweep.py
+│   └── package_project.py
+├── src/scalab/
+│   ├── cli.py
+│   ├── config.py
+│   ├── runtime.py
+│   ├── datasets/
+│   ├── models/
+│   ├── calibration/
+│   ├── shifts/
+│   ├── metrics/
+│   ├── reporting/
+│   └── utils/
+├── tests/
+└── outputs/
+```
+
+## Quick Start
+
+Create an environment and install the package locally:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -e .
+```
+
+Run a baseline calibration study:
+
+```bash
+python -m scalab.cli run --config configs/digits_baseline.yaml
+```
+
+Run a distribution-shift sweep:
+
+```bash
+python -m scalab.cli run --config configs/digits_shift_sweep.yaml
+```
+
+## Primary Experimental Flow
+
+1. Load the digits dataset.
+2. Train a probabilistic classifier.
+3. Hold out calibration and test partitions.
+4. Fit scalar temperature scaling on the calibration split.
+5. Fit adaptive temperature scaling on the calibration split using sample-level features.
+6. Evaluate all methods on the clean test set.
+7. Re-evaluate under a family of controlled shifts with increasing severity.
+8. Export plots, JSON summaries, and a markdown report.
+
+## Adaptive Temperature Model
+
+The adaptive model estimates a sample-specific temperature using a compact feature map built from:
+
+- top-1 confidence
+- margin between top-1 and top-2 probabilities
+- normalized logit entropy
+- input intensity statistics
+- shift severity metadata
+
+The learned mapping is constrained to produce strictly positive temperatures and is optimized against validation negative log likelihood.
+
+## Reproducibility
+
+All experiment entry points support deterministic seeds. Reports record:
+
+- random seed
+- split sizes
+- transformation family
+- transformation severity
+- classifier hyperparameters
+- calibration parameters
+
+## Representative Output Artifacts
+
+- `metrics_summary.csv`
+- `clean_vs_shifted.json`
+- `reliability_clean.png`
+- `reliability_shift_gaussian_noise.png`
+- `ece_by_severity.png`
+- `report.md`
+
+## Citation Context
+
+This repository is designed around the calibration formulation of Guo et al., *On Calibration of Modern Neural Networks*.

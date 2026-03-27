@@ -1,0 +1,39 @@
+experiment:
+  name: digits_baseline
+  output_dir: outputs/digits_baseline
+  seed: 17
+
+dataset:
+  name: digits
+  normalize: true
+  split:
+    train: 0.55
+    validation: 0.15
+    calibration: 0.15
+    test: 0.15
+
+model:
+  name: mlp
+  hidden_layer_sizes: [128, 64]
+  alpha: 0.0005
+  max_iter: 400
+  early_stopping: true
+
+calibration:
+  scalar_temperature:
+    enabled: true
+    search_bounds: [0.5, 8.0]
+    grid_points: 400
+  adaptive_temperature:
+    enabled: true
+    learning_rate: 0.05
+    max_iter: 700
+    l2: 0.001
+    include_severity: false
+
+shift:
+  families: []
+
+reporting:
+  reliability_bins: 15
+  save_probabilities: true

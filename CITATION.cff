@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+title: "Shift Calibration Lab"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: "Palit"
+    given-names: "Priyojit"
+date-released: 2026-01-01
+version: "1.0"
+repository-code: "https://github.com/YOUR_USERNAME/shift-calibration-lab"
+keywords:
+  - machine learning
+  - calibration
+  - distribution shift
+  - trustworthy ai
+license: MIT

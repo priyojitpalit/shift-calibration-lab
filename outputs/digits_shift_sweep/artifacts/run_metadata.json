@@ -1,0 +1,113 @@
+{
+  "config_path": "configs\\digits_shift_sweep.yaml",
+  "config": {
+    "experiment": {
+      "name": "digits_shift_sweep",
+      "output_dir": "outputs/digits_shift_sweep",
+      "seed": 23
+    },
+    "dataset": {
+      "name": "digits",
+      "normalize": true,
+      "split": {
+        "train": 0.55,
+        "validation": 0.15,
+        "calibration": 0.15,
+        "test": 0.15
+      }
+    },
+    "model": {
+      "name": "mlp",
+      "hidden_layer_sizes": [
+        128,
+        64
+      ],
+      "alpha": 0.0005,
+      "max_iter": 400,
+      "early_stopping": true
+    },
+    "calibration": {
+      "scalar_temperature": {
+        "enabled": true,
+        "search_bounds": [
+          0.5,
+          8.0
+        ],
+        "grid_points": 400
+      },
+      "adaptive_temperature": {
+        "enabled": true,
+        "learning_rate": 0.05,
+        "max_iter": 900,
+        "l2": 0.001,
+        "include_severity": true
+      }
+    },
+    "shift": {
+      "families": [
+        {
+          "name": "gaussian_noise",
+          "severities": [
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.3
+          ]
+        },
+        {
+          "name": "contrast_scale",
+          "severities": [
+            0.8,
+            0.65,
+            0.5,
+            0.35
+          ]
+        },
+        {
+          "name": "blur",
+          "severities": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "name": "pixel_dropout",
+          "severities": [
+            0.05,
+            0.1,
+            0.15,
+            0.25
+          ]
+        },
+        {
+          "name": "intensity_shift",
+          "severities": [
+            0.05,
+            0.1,
+            0.15,
+            0.2
+          ]
+        }
+      ]
+    },
+    "reporting": {
+      "reliability_bins": 15,
+      "save_probabilities": true
+    }
+  },
+  "scalar_temperature": 1.1203007518796992,
+  "adaptive_loss_tail": [
+    0.14850132236524627,
+    0.1484942500568883,
+    0.14848719322896653,
+    0.14848015183533708,
+    0.1484731258300315,
+    0.14846611516725577,
+    0.14845911980138934,
+    0.1484521396869847,
+    0.14844517477876626,
+    0.1484382250316297
+  ]
+}

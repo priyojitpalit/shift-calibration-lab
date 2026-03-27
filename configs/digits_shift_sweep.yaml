@@ -1,0 +1,49 @@
+experiment:
+  name: digits_shift_sweep
+  output_dir: outputs/digits_shift_sweep
+  seed: 23
+
+dataset:
+  name: digits
+  normalize: true
+  split:
+    train: 0.55
+    validation: 0.15
+    calibration: 0.15
+    test: 0.15
+
+model:
+  name: mlp
+  hidden_layer_sizes: [128, 64]
+  alpha: 0.0005
+  max_iter: 400
+  early_stopping: true
+
+calibration:
+  scalar_temperature:
+    enabled: true
+    search_bounds: [0.5, 8.0]
+    grid_points: 400
+  adaptive_temperature:
+    enabled: true
+    learning_rate: 0.05
+    max_iter: 900
+    l2: 0.001
+    include_severity: true
+
+shift:
+  families:
+    - name: gaussian_noise
+      severities: [0.05, 0.10, 0.15, 0.20, 0.30]
+    - name: contrast_scale
+      severities: [0.80, 0.65, 0.50, 0.35]
+    - name: blur
+      severities: [1, 2, 3]
+    - name: pixel_dropout
+      severities: [0.05, 0.10, 0.15, 0.25]
+    - name: intensity_shift
+      severities: [0.05, 0.10, 0.15, 0.20]
+
+reporting:
+  reliability_bins: 15
+  save_probabilities: true

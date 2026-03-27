@@ -1,0 +1,44 @@
+{
+  "clean": [
+    {
+      "dataset_partition": "test",
+      "condition": "clean",
+      "shift_family": "none",
+      "severity": 0.0,
+      "method": "uncalibrated",
+      "accuracy": 0.9555555555555556,
+      "nll": 0.17625037531510016,
+      "brier": 0.07778701777295977,
+      "ece": 0.05182537130109317,
+      "mce": 0.6796096201392068,
+      "mean_confidence": 0.9093735529346186
+    },
+    {
+      "dataset_partition": "test",
+      "condition": "clean",
+      "shift_family": "none",
+      "severity": 0.0,
+      "method": "scalar_temperature",
+      "accuracy": 0.9555555555555556,
+      "nll": 0.16534832285638074,
+      "brier": 0.07179320356725791,
+      "ece": 0.02553629506330781,
+      "mce": 0.5663678609928635,
+      "mean_confidence": 0.9677953271627433
+    },
+    {
+      "dataset_partition": "test",
+      "condition": "clean",
+      "shift_family": "none",
+      "severity": 0.0,
+      "method": "adaptive_temperature",
+      "accuracy": 0.9555555555555556,
+      "nll": 0.1834221122711578,
+      "brier": 0.07995549699486895,
+      "ece": 0.05926394784899443,
+      "mce": 0.6949687074658422,
+      "mean_confidence": 0.9018419335462269
+    }
+  ],
+  "shifted": []
+}
